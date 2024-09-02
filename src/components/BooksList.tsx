@@ -1,0 +1,126 @@
+import { IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList } from "@ionic/react";
+import React, { useEffect, useRef } from "react";
+
+const Old = [
+  { id: 0, BookN: "Genesis", chapters: 50 },
+  { id: 1, BookN: "Exodus", chapters: 40 },
+  { id: 2, BookN: "Leviticus", chapters: 27 },
+  { id: 3, BookN: "Numbers", chapters: 36 },
+  { id: 4, BookN: "Deuteronomy", chapters: 34 },
+  { id: 5, BookN: "Joshua", chapters: 24 },
+  { id: 6, BookN: "Judges", chapters: 21 },
+  { id: 7, BookN: "Ruth", chapters: 4 },
+  { id: 8, BookN: "1 Samuel", chapters: 31 },
+  { id: 9, BookN: "2 Samuel", chapters: 24 },
+  { id: 10, BookN: "1 Kings", chapters: 22 },
+  { id: 11, BookN: "2 Kings", chapters: 25 },
+  { id: 12, BookN: "1 Chronicles", chapters: 29 },
+  { id: 13, BookN: "2 Chronicles", chapters: 36 },
+  { id: 14, BookN: "Ezra", chapters: 10 },
+  { id: 15, BookN: "Nehemiah", chapters: 13 },
+  { id: 16, BookN: "Esther", chapters: 10 },
+  { id: 17, BookN: "Job", chapters: 42 },
+  { id: 18, BookN: "Psalms", chapters: 150 },
+  { id: 19, BookN: "Proverbs", chapters: 31 },
+  { id: 20, BookN: "Ecclesiates", chapters: 12 },
+  { id: 21, BookN: "Songs of Solomon", chapters: 8 },
+  { id: 22, BookN: "Isaiah", chapters: 66 },
+  { id: 23, BookN: "Jeremiah", chapters: 52 },
+  { id: 24, BookN: "Lamentations", chapters: 5 },
+  { id: 25, BookN: "Ezekiel", chapters: 48 },
+  { id: 26, BookN: "Daniel", chapters: 12 },
+  { id: 27, BookN: "Hosea", chapters: 14 },
+  { id: 28, BookN: "Joel", chapters: 3 },
+  { id: 29, BookN: "Amos", chapters: 9 },
+  { id: 30, BookN: "Obadiah", chapters: 1 },
+  { id: 31, BookN: "Jonah", chapters: 4 },
+  { id: 32, BookN: "Micah", chapters: 7 },
+  { id: 33, BookN: "Nahum", chapters: 3 },
+  { id: 34, BookN: "Habakkuk", chapters: 3 },
+  { id: 35, BookN: "Zephaniah", chapters: 3 },
+  { id: 36, BookN: "Haggai", chapters: 2 },
+  { id: 37, BookN: "Zechariah", chapters: 14 },
+  { id: 38, BookN: "Malachi", chapters: 4 }
+]
+
+const New = [
+  { id: 39, BookN: "Matthew", chapters: 28 },
+  { id: 40, BookN: "Mark", chapters: 16 },
+  { id: 41, BookN: "Luke", chapters: 24 },
+  { id: 42, BookN: "John", chapters: 21 },
+  { id: 43, BookN: "Acts", chapters: 28 },
+  { id: 44, BookN: "Romans", chapters: 16 },
+  { id: 45, BookN: "1 Corinthians", chapters: 16 },
+  { id: 46, BookN: "2 Corinthians", chapters: 13 },
+  { id: 47, BookN: "Galatians", chapters: 6 },
+  { id: 48, BookN: "Ephesians", chapters: 6 },
+  { id: 49, BookN: "Philippians", chapters: 4 },
+  { id: 50, BookN: "Colossians", chapters: 4 },
+  { id: 51, BookN: "1 Thessalonians", chapters: 5 },
+  { id: 52, BookN: "2 Thessalonians", chapters: 3 },
+  { id: 53, BookN: "1 Timothy", chapters: 6 },
+  { id: 54, BookN: "2 Timothy", chapters: 4 },
+  { id: 55, BookN: "Titus", chapters: 3 },
+  { id: 56, BookN: "Philemon", chapters: 1 },
+  { id: 57, BookN: "Hebrews", chapters: 13 },
+  { id: 58, BookN: "James", chapters: 5 },
+  { id: 59, BookN: "1 Peter", chapters: 5 },
+  { id: 60, BookN: "2 Peter", chapters: 3 },
+  { id: 61, BookN: "1 John", chapters: 5 },
+  { id: 62, BookN: "2 John", chapters: 1 },
+  { id: 63, BookN: "3 John", chapters: 1 },
+  { id: 64, BookN: "Jude", chapters: 1 },
+  { id: 65, BookN: "Revelation", chapters: 22 },
+];
+
+interface BookListProps {
+  handleSeg: (val: any, bookindex: any) => void,
+  BookIndex  : number,
+}
+
+const BookList = ({ handleSeg, BookIndex }: BookListProps) => {
+  const ListRef = useRef<HTMLIonListElement>(null)
+
+  const OldList = Old.map((bookname, no) =>
+    <IonItem button detail={true} key={no} id={bookname.id.toString()} onClick={() => handleSeg("chapters", bookname.id)}>
+      <IonLabel>{bookname.BookN}</IonLabel>
+    </IonItem>
+  )
+
+  const NewList = New.map((bookname, no) =>
+    <IonItem button detail={true} key={no} id={bookname.id.toString()} onClick={() => handleSeg("chapters", bookname.id)}>
+      <IonLabel>{bookname.BookN}</IonLabel>
+    </IonItem>
+  )
+
+  useEffect(()=> {
+    if(ListRef.current){
+      if(BookIndex < 38){
+        ListRef.current.children[0].children[BookIndex+1].scrollIntoView({behavior : 'instant'});
+      }else{
+        ListRef.current.children[1].children[BookIndex-38].scrollIntoView({ behavior : 'instant'})
+      }
+    }
+  }, [])
+
+  return (<IonList ref={ListRef} >
+    <IonItemGroup >
+      <IonItemDivider color={"dark"}>
+        <IonLabel>
+          Old Testament
+        </IonLabel>
+      </IonItemDivider>
+      {OldList}
+    </IonItemGroup>
+    <IonItemGroup>
+      <IonItemDivider color={"dark"}>
+        <IonLabel>
+          New Testament
+        </IonLabel>
+      </IonItemDivider>
+      {NewList}
+    </IonItemGroup>
+  </IonList>)
+
+}
+export default BookList;

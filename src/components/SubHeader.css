@@ -1,0 +1,27 @@
+.k {
+	--color : white;
+
+	--border-color : #f24aec;
+	--border-color : 4px 0;
+	--border-style : double;
+
+	--min-height : 30px;
+
+	
+	text-align: center;
+  	
+}
+
+.my {
+	--color : white;
+	--max-width : 200px;
+	text-align: center;
+}
+
+.custom-item {
+	color: green;
+}
+
+.wrong-item {
+	color: red;
+}
